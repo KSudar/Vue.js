@@ -16,7 +16,11 @@
         <hr>
         <p v-html="finishedLink"></p>
     </div>
-
+    
+    <div id="excercise">
+        <p> VueJS is pretty cool - {{ name }} ({{ age * 3 }})</p>
+    </div>
+    
     <script>
         new Vue({
             el: '#app',
@@ -35,6 +39,14 @@
                 }
             }
         });
+        new Vue({
+            el: '#excercise',
+            data:{
+                name: 'Krešimir',
+                age: 26,
+                
+            }
+        })
     </script>
 </body>
 
