@@ -13,36 +13,64 @@
         <button v-on:click="increase(2, $event)">Click me</button>
         <p>{{ counter }}</p>
         <p v-on:mousemove="updateCoordinates">
-            Coordinates: {{ x }} / {{ y }} - 
+            Coordinates: {{ x }} / {{ y }} -
             <span v-on:mousemove="dummy">
-        <!-- <span v-on:mousemove.stop=""> -->
-                DEAD SPOT    
-            </span>            
+                <!-- <span v-on:mousemove.stop=""> -->
+                DEAD SPOT
+            </span>
         </p>
         <input type="text" v-on:keyup.enter.space="alertMe">
+    </div>
+    <hr>
+    <div id="excercise">
+        <h2>Excercise</h2>
+        <div>
+            <button v-on:click="alertMeToo">Show Alert</button>
+        </div>
+
+        <div>
+            <input type="text" v-on:keydown="value = $event.target.value">
+            <p>{{ value }}</p>
+        </div>
+        
+        <div>
+                <input type="text" v-on:keydown.enter="value = $event.target.value">
+                <p>{{ value }}</p>
+            </div>
     </div>
 
     <script>
         new Vue({
             el: '#app',
-            data:{
+            data: {
                 counter: 0,
                 x: 0,
                 y: 0
             },
             methods: {
-                increase: function(step, event){
+                increase: function (step, event) {
                     this.counter += step;
                 },
-                updateCoordinates: function(event){
+                updateCoordinates: function (event) {
                     this.x = event.clientX;
                     this.y = event.clientY;
                 },
-                dummy: function(event){
+                dummy: function (event) {
                     event.stopPropagation();
                 },
-                alertMe: function(event){
-                    alert('Alert!');                    
+                alertMe: function (event) {
+                    alert('Alert!');
+                }
+            }
+        })
+        new Vue({
+            el: '#excercise',
+            data: {
+                value: ''
+            },
+            methods: {
+                alertMeToo: function(){
+                    alert();
                 }
             }
         })
