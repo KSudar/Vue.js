@@ -16,11 +16,24 @@
         <hr>
         <p v-html="finishedLink"></p>
     </div>
-    
+    <hr>
+    <h2>EXCERCISE</h2>
     <div id="excercise">
-        <p> VueJS is pretty cool - {{ name }} ({{ age * 3 }})</p>
+        <p> VueJS is pretty cool - {{ name }} ({{ age }})</p>
+
+        <p> AGE * 3 ({{ age * 3}})</p>
+
+        <p> RANDOM NUMBER BETWEEN 1 AND 100: {{ randomNumber() }}</p>
+
+        <div>
+            <img v-bind:src="picture" style="width:100px; height: 100px;">
+        </div>
+
+        <div>
+            <input type="text" v-bind:value="name">
+        </div>
     </div>
-    
+
     <script>
         new Vue({
             el: '#app',
@@ -41,10 +54,16 @@
         });
         new Vue({
             el: '#excercise',
-            data:{
+            data: {
                 name: 'Krešimir',
                 age: 26,
-                
+                picture: 'https://assets.vg247.com/current//2016/12/dota_2_7-0_the_new_journey_sun_wukong_monkey_king.jpg'
+
+            },
+            methods: {
+                randomNumber: function () {
+                    return Math.floor(Math.random() * 100 + 1);
+                }
             }
         })
     </script>
