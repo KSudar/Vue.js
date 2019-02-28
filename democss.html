@@ -30,9 +30,11 @@
 
 <body>
     <div id="app">
+        <button @click="attachRed = !attachRed">Start Effect</button>
         <div class="demo" @click="attachRed = !attachRed" :class="divClasses"></div>
         <div class="demo" :class="{ red: attachRed }"></div>
         <div class="demo" :class="[color, { red: attachRed }]"></div>
+        <div class="demo" :class="color"></div>
         <hr>
         <input type="text" v-model="color">
     </div>
