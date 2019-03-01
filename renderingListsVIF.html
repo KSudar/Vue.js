@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="vue.js"></script>
+    <title>Conditional rendering with v-if</title>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="(el, i) in ingredients" :key="el"> {{ el }} ({{ i }})</li>
+        </ul>
+
+        <button @click="ingredients.push('spices')">Add New</button>
+        <hr>
+        <ul>
+            <li v-for="person in persons">
+                <div v-for="(value, key, index) in person">{{key}}: {{value}} ({{index}})</div>
+            </li>
+        </ul>
+
+        <span v-for = "i in 10">{{i}}</span>
+
+        <hr>
+
+        <template v-for="(el, i) in ingredients">
+            <h1>{{ el }}</h1>
+            <p>{{ i }}</p>
+        </template>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                ingredients: ['meat', 'fruit', 'cookies'],
+                persons: [
+                    { name: 'Max', age: 27, color: 'red' },
+                    { name: 'Anna', age: 'unknown', color: 'blue' }
+                ]
+            },
+            methods: {
+            }
+        })
+    </script>
+</body>
+
+</html>
