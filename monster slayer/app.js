@@ -1,6 +1,7 @@
 new Vue({
     el: '#app',
     data: {
+        damage: 0,
         playerHealth: 100,
         monsterHealth: 100,
         isGameRunning: false,
@@ -8,18 +9,32 @@ new Vue({
     },
     methods: {
         startGame: function () {
+            this.damage = 0;
             this.playerHealth = 100;
             this.monsterHealth = 100;
-            this.isGameRunning = !this.isGameRunning;
+            this.isGameRunning = true;
             this.turns = [];
         },
         attack: function () {
+            console.log(this.damage);
             if (this.playerAttack(3, 10)) return;
+            else{
+                this.turns.unshift({                    
+                    isPlayer: true,
+                    text: 'Player hits Monster for ' + this.damage
+                });
+            }
             this.monsterAttack()
 
         },
         specialAttack: function () {
             if (this.playerAttack(10, 20)) return;
+            else{
+                this.turns.unshift({
+                    isPlayer: true,
+                    text: 'Player hits Monster hard for ' + this.damage
+                });
+            }
             this.monsterAttack();
         },
         heal: function () {
@@ -39,7 +54,7 @@ new Vue({
             this.monsterAttack();
         },
         giveUp: function () {
-            this.isGameRunning = !this.isGameRunning;
+            this.isGameRunning = false;
         },
         calculateDamage: function (min, max) {
             return Math.max(Math.floor(Math.random() * max) + 1, min);
@@ -65,27 +80,24 @@ new Vue({
             return false;
         },
         monsterAttack: function () {
-            var damage = this.calculateDamage(5, 12);
-            this.playerHealth -= damage;
+            this.damage = this.calculateDamage(5, 12);
+            this.playerHealth -= this.damage;
             if (this.checkWin()) {
                 return true;
             } else {
                 this.turns.unshift({
                     isPlayer: false,
-                    text: 'Monster hits Player for ' + damage
+                    text: 'Monster hits Player for ' + this.damage
                 });
             }
         },
         playerAttack: function (min, max) {
-            damage = this.calculateDamage(min, max);
-            this.monsterHealth -= damage;
+            this.damage = this.calculateDamage(min, max);
+            this.monsterHealth -= this.damage;
             if (this.checkWin()) {
                 return true;
             } else {
-                this.turns.unshift({
-                    isPlayer: true,
-                    text: 'Player hits Monster for ' + damage
-                });
+                return false;
             }
         }
     }
