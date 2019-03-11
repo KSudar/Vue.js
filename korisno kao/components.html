@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <script src="vue.js"></script>
+   <title>components</title>
+</head>
+
+<body>
+   <div id="app1">
+      <my-cmp></my-cmp>
+      <hr>
+      <my-cmp></my-cmp>
+   </div>
+   <hr>
+   <hr>
+   <div id="app2">
+      <my-cmp></my-cmp>
+      <hr>
+      <my-cmp></my-cmp>
+   </div>
+
+
+   <script>
+      //let data = {status: 'Critical'};
+      //Vue.component('name', {}) global component
+      const cmp = {
+         data: () => {
+            return {
+               status: 'Critical'
+            }
+         },
+         template: '<p>Server Status: {{ status }} (<button @click="changeStatus"> Change</button>)</p>',
+         methods: {
+            changeStatus: function () {
+               this.status = 'Normal';
+            }
+         }
+
+      }
+      new Vue({
+         el: '#app1',
+         components: {
+            'my-cmp': cmp
+         }
+      });
+
+      new Vue({
+         el: '#app2'
+      });
+   </script>
+</body>
+
+</html>
