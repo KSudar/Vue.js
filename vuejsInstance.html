@@ -16,8 +16,10 @@
    <div id="app2">
       <h1>{{ title }}</h1>
       <button @click="onChange">Change title 1</button>
+
    </div>
    <div id="app3">
+
    </div>
 
    <script>
@@ -25,6 +27,7 @@
          title: 'The VueJS Instance',
          showParagraph: false
       }
+
       var vm1 = new Vue({
          data: data,
          methods: {
