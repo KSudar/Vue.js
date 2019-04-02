@@ -1,36 +1,36 @@
 <template>
-    <div class="col-xs-12 col-sm-6">
-        <div v-if="!server"><p>Server Details are currently not updated</p></div>
-        <div v-else><p>Server Details</p>
-        <p>Server #{{ server.id }} status is {{server.status}}</p></div>
-    </div>
-
+   <div class="col-xs-12 col-sm-6">
+      <div>
+         <p v-if="!server">Please select a Server</p>
+         <p v-else>Server #{{server.id}} selected, Status: {{ server.status }}</p>
+         <hr>
+         <button @click="resetStatus">Change to normal</button>
+      </div>
+   </div>
 </template>
 
 <script>
+import { serverBus } from "../../main";
 export default {
-   props: {
-      server: {
-         type: Object
-      }
+   data: function() {
+      return {
+         server: null
+      };
    },
    methods: {
-      switchName() {
-         return this.myName
-            .split("")
-            .reverse()
-            .join("");
+      resetStatus() {
+         if (this.server) {
+            this.server.status = "Normal";
+         }
       }
    },
    created() {
-      eventBus.$on('ageWasEdited', (age) => {
-         this.userAge = age;
+      serverBus.$on("serverSelected", server => {
+         this.server = server;
       });
    }
 };
-
 </script>
 
 <style>
-
 </style>
