@@ -37,10 +37,10 @@
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
                <div class="form-group">
                   <label for="sendmail">
-                     <input type="checkbox" id="sendmail" value="SendMail"> Send Mail
+                     <input type="checkbox" id="sendmail" value="SendMail" v-model="sendMail"> Send Mail
                   </label>
                   <label for="sendInfomail">
-                     <input type="checkbox" id="sendInfomail" value="SendInfoMail"> Send Infomail
+                     <input type="checkbox" id="sendInfomail" value="SendInfoMail" v-model="sendMail"> Send Infomail
                   </label>
                </div>
             </div>
@@ -48,30 +48,35 @@
          <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 form-group">
                <label for="male">
-                  <input type="radio" id="male" value="Male"> Male
+                  <input type="radio" id="male" value="Male" v-model="gender"> Male
                </label>
                <label for="female">
-                  <input type="radio" id="female" value="Female"> Female
+                  <input type="radio" id="female" value="Female" v-model="gender"> Female
                </label>
             </div>
          </div>
          <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 from-group">
                <label for="priority">Priority</label>
-               <select id="priority" class="form-control">
-                  <option></option>
+               <select id="priority" class="form-control" v-model="selectedPriority">
+                  <option v-for="priority in priorities"> {{ priority }} </option>
                </select>
             </div>
+         </div>
+         <div class="row">
+             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
+                 <app-switch v-model="dataSwitch"></app-switch>
+             </div>
          </div>
          <hr>
          <div class="row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
-               <button class="btn btn-primary">Submit!</button>
+               <button class="btn btn-primary" @click.prevent="submitted">Submit!</button>
             </div>
          </div>
       </form>
       <hr>
-      <div class="row">
+      <div class="row" v-if="isSubmitted">
          <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
             <div class="panel panel-default">
                <div class="panel-heading">
@@ -81,16 +86,16 @@
                   <p>Mail: {{ userData.email }}</p>
                   <p>Password: {{ userData.password }}</p>
                   <p>Age: {{ userData.age }}</p>
-                  <p>Message: {{message}}</p>
+                  <p style="white-space: pre">Message: {{message}}</p>
                   <p>
                      <strong>Send Mail?</strong>
                   </p>
                   <ul>
-                     <li></li>
+                     <li v-for="item in sendMail">{{ item }}</li>
                   </ul>
-                  <p>Gender:</p>
-                  <p>Priority:</p>
-                  <p>Switched:</p>
+                  <p>Gender: {{ gender }}</p>
+                  <p>Priority: {{selectedPriority}} </p>
+                  <p>Switched: {{dataSwitch}} </p>
                </div>
             </div>
          </div>
@@ -99,6 +104,7 @@
 </template>
 
 <script>
+import Switch from './Switch.vue'
    export default {
       data() {
          return {
@@ -107,8 +113,22 @@
                password: '',
                age: 26
             },
-            message: 'A new Text'
+            message: 'A new Text',
+            sendMail: [],
+            gender: 'Male',
+            selectedPriority: 'High',
+            priorities: ['High', 'Medium', 'Low'], 
+            dataSwitch: true,
+            isSubmitted: false      
          }
+      },
+      methods: {
+          submitted(){
+              this.isSubmitted = true;
+          }
+      },
+      components: {
+          appSwitch: Switch
       }
    }
 </script>
