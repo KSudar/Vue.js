@@ -5,7 +5,7 @@
 				class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"
 			>
 				<h1>Filters & Mixins</h1>
-				<p>{{ text | (to - uppercase) | (to - lowercase) }}</p>
+				<p>{{ text | to-uppercase | (to - lowercase) }}</p>
 				<hr />
 				<input v-model="filterText" />
 				<ul>
@@ -20,24 +20,17 @@
 
 <script>
    import List from './List.vue';
+   import { fruitMixin } from './fruitMixin'
    export default {
+	mixins: [fruitMixin],
    	data() {
    		return {
-   			text: 'Hello there!',
-   			fruits: ['Apple', 'Banana', 'Mango', 'Melon'],
-   			filterText: ''
+   			text: 'Hello there!'
    		};
    	},
    	filters: {
    		toUppercase(value) {
    			return value.toUpperCase();
-   		}
-   	},
-   	computed: {
-   		filteredFruits() {
-   			return this.fruits.filter(fruit => {
-   				return fruit.match(this.filterText);
-   			});
    		}
    	},
    	components: {

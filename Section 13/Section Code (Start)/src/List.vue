@@ -12,27 +12,11 @@
   	</div>
 </template>
 
-<script lang='js'>
-  export default  {
-    name: 'list',
-    props: [],
-    mounted() {
-
-    },
-    data() {
-      return {
-          fruits: ['Apple', 'Banana', 'Mango', 'Melon'],
-            filterText: ''
-      }
-    },
-   	computed: {
-   		filteredFruits() {
-   			return this.fruits.filter(fruit => {
-   				return fruit.match(this.filterText);
-   			});
-   		}
-	},
-}
+<script>
+   import { fruitMixin } from './fruitMixin';
+   export default {
+	   mixins: [fruitMixin]
+   }
 </script>
 
 <!-- <style scoped lang='scss'>
