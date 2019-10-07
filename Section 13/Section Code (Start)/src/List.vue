@@ -15,8 +15,11 @@
 <script>
    import { fruitMixin } from './fruitMixin';
    export default {
-	   mixins: [fruitMixin]
-   }
+		mixins: [fruitMixin],
+		created() {
+			console.log('inside list created hook');
+		},
+   };
 </script>
 
 <!-- <style scoped lang='scss'>
