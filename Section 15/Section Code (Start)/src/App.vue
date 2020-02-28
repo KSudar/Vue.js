@@ -14,7 +14,7 @@
 				<button class="btn btn-primary" @click="submit">Submit</button>
 				<hr />
 				<button class="btn btn-primary" @click="fetchData">Get Data</button>
-				<br><br>
+				<br /><br />
 				<ul class="list-group">
 					<li class="list-group-item" v-for="u in users">
 						{{ u.username }} - {{ u.email }}
@@ -39,37 +39,39 @@ export default {
 	},
 	methods: {
 		submit() {
-			const saveUser = this.$http.post(
-				'https://vuejs-http-9ed06.firebaseio.com/data.json',
-				this.user
-			);
-			saveUser.then(
-				response => {
-					console.log(response);
-				},
-				error => {
-					console.log(error);
-				}
-			);
+			// const saveUser = this.$http.post('data.json', this.user);
+			// saveUser.then(
+			// 	response => {
+			// 		console.log(response);
+			// 	},
+			// 	error => {
+			// 		console.log(error);
+			// 	}
+			// );
+			this.resource.save({}, this.user);
 		},
 		fetchData() {
-			const getUsers = this.$http.get(
-				'https://vuejs-http-9ed06.firebaseio.com/data.json'
-			);
-			getUsers.then(
-				response => {
-					 return response.json();
-					console.log(data);
-				},
-				error => {
-					console.log(error);
-				}
-			).then(data => {
-				for(let key in data){
-					 this.users.push(data[key]);
-				}
-			});
+			this.users = [];
+			const getUsers = this.$http.get('data.json');
+			getUsers
+				.then(
+					response => {
+						return response.json();
+						console.log(data);
+					},
+					error => {
+						console.log(error);
+					}
+				)
+				.then(data => {
+					for (let key in data) {
+						this.users.push(data[key]);
+					}
+				});
 		},
+	},
+	created() {
+		this.resource = this.$resource('data.json');
 	},
 };
 </script>
