@@ -1,3 +1,3 @@
 <template>
-    <h3>Edit the User</h3>
+	<h3>Edit the User</h3>
 </template>

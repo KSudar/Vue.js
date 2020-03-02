@@ -6,4 +6,5 @@
     "vue"
   ],
   "prettier.endOfLine": "crlf",
+  "files.eol": "\r\n",
 }
