@@ -13,6 +13,8 @@
 				</div>
 				<button class="btn btn-primary" @click="submit">Submit</button>
 				<hr />
+				<input type="text" class="form-control" v-model="node">
+				<br />
 				<button class="btn btn-primary" @click="fetchData">Get Data</button>
 				<br /><br />
 				<ul class="list-group">
@@ -35,6 +37,8 @@ export default {
 				email: '',
 			},
 			users: [],
+			resource: {},
+			node: 'data',
 		};
 	},
 	methods: {
@@ -48,30 +52,42 @@ export default {
 			// 		console.log(error);
 			// 	}
 			// );
-			this.resource.save({}, this.user);
+			//this.resource.save({}, this.user);
+			this.resource.saveAlt(this.user);
 		},
 		fetchData() {
 			this.users = [];
-			const getUsers = this.$http.get('data.json');
-			getUsers
-				.then(
-					response => {
-						return response.json();
-						console.log(data);
-					},
-					error => {
-						console.log(error);
-					}
-				)
-				.then(data => {
-					for (let key in data) {
-						this.users.push(data[key]);
-					}
-				});
+			// const getUsers = this.$http.get('data.json');
+			// getUsers
+			// 	.then(
+			// 		response => {
+			// 			return response.json();
+			// 			console.log(data);
+			// 		},
+			// 		error => {
+			// 			console.log(error);
+			// 		}
+			// 	)
+			// 	.then(data => {
+			// 		for (let key in data) {
+			// 			this.users.push(data[key]);
+			// 		}
+			// 	});
+			this.resource.getData({ node: this.node }).then(response => {
+				return response.json()
+			}, error => console.log(error)).then(data => {
+				for (let key in data) {
+					this.users.push(data[key])
+				}
+			})
 		},
 	},
 	created() {
-		this.resource = this.$resource('data.json');
+		const customActions = {
+			saveAlt: { method: 'POST', url: 'alternative.json'},
+			getData: { method:'GET'}
+		};
+		this.resource = this.$resource('{node}.json', {}, customActions);
 	},
 };
 </script>
