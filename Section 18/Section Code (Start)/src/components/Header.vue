@@ -13,6 +13,7 @@
 						><a>Stocks</a></router-link
 					>
 				</ul>
+				<strong class="navbar-text navbar-right">Funds: {{this.$store.getters.funds}}</strong>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="#">End Day</a></li>
 					<li class="dropdown">
